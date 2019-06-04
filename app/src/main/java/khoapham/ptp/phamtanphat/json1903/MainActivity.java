@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
                         .load(hinhanh)
                         .placeholder(R.mipmap.ic_launcher)
                         .override(width ,height )
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)
                         .into(img);
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
