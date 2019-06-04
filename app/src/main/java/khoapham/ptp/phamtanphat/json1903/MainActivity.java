@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,16 +21,18 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Button btnJsonDemo;
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btnJsonDemo = findViewById(R.id.buttonReadJsondemo);
+        img = findViewById(R.id.imageview);
         btnJsonDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Xulyjson().execute("https://khoapham.vn/KhoaPhamTraining/json/tien/demo2.json");
+                new Xulyjson().execute("https://khoapham.vn/KhoaPhamTraining/json/tien/demo5.json");
             }
         });
 
@@ -51,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
             //2 : Thang dau tien phai khoi tao cho tu new Json
 
             try {
-                JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = jsonObject.getJSONArray("danhsach");
-
+                JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0 ; i < jsonArray.length() ; i++){
-                    JSONObject jsonObjectDanhsach = jsonArray.getJSONObject(i);
-                    String khoahoc = jsonObjectDanhsach.getString("khoahoc");
-                    Log.d("BBB",khoahoc);
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String khoahoc = jsonObject.getString("khoahoc");
+                    String hocphi = jsonObject.getString("hocphi");
+                    String hinhanh = jsonObject.getString("hinhanh");
+                    Log.d("BBB","Khoa hoc : " + khoahoc + " Hoc phi : " + hocphi + " Hinh anh : " + hinhanh);
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
