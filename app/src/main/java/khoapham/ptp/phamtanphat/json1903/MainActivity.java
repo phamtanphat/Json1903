@@ -3,10 +3,13 @@ package khoapham.ptp.phamtanphat.json1903;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,8 +63,18 @@ public class MainActivity extends AppCompatActivity {
                     String khoahoc = jsonObject.getString("khoahoc");
                     String hocphi = jsonObject.getString("hocphi");
                     String hinhanh = jsonObject.getString("hinhanh");
-                    Log.d("BBB","Khoa hoc : " + khoahoc + " Hoc phi : " + hocphi + " Hinh anh : " + hinhanh);
 
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int height = displayMetrics.heightPixels;
+                    int width = displayMetrics.widthPixels;
+
+                    Glide
+                        .with(MainActivity.this)
+                        .load(hinhanh)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .override(width ,height )
+                        .into(img);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
