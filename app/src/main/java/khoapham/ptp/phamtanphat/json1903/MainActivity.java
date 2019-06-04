@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +29,10 @@ public class MainActivity extends AppCompatActivity {
         btnJsonDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Xulyjson().execute("https://khoapham.vn/KhoaPhamTraining/json/tien/demo1.json");
+                new Xulyjson().execute("https://khoapham.vn/KhoaPhamTraining/json/tien/demo2.json");
             }
         });
+
     }
     class Xulyjson extends AsyncTask<String,Void,String>{
 
@@ -49,8 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                String website = jsonObject.getString("website");
-                Log.d("BBB",website);
+                JSONArray jsonArray = jsonObject.getJSONArray("danhsach");
+
+                for (int i = 0 ; i < jsonArray.length() ; i++){
+                    JSONObject jsonObjectDanhsach = jsonArray.getJSONObject(i);
+                    String khoahoc = jsonObjectDanhsach.getString("khoahoc");
+                    Log.d("BBB",khoahoc);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
